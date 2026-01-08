@@ -1,0 +1,20 @@
+name: Test Environment
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test-env:
+    runs-on: ubuntu-latest
+    environment: TEST_SECRET
+
+    steps:
+      - name: Show secret exists
+        run: |
+          if [ -z "${{ secrets.TEST_SECRET }}" ]; then
+            echo "❌ Secret NOT found"
+            exit 1
+          else
+            echo "✅ Secret found"
+          fi
